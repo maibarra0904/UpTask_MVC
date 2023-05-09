@@ -1,6 +1,6 @@
 <?php
 
-$db = mysqli_connect('localhost', 'root', '', '');
+$db = mysqli_connect('localhost', 'root', 'LMip092132493@', 'apptask_crud');
 
 
 if (!$db) {
