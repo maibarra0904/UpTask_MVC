@@ -38,20 +38,26 @@ class LoginController {
         ]);
     }
 
-    public static function olvide() {
-        echo "Desde Login";
+    public static function olvide(Router $router) {
 
         if($_SERVER['REQUEST_METHOS'] === 'POST') {
             
         }
+
+        $router->render('auth/olvide', [
+            'titulo' => 'Olvide'
+        ]);
     }
 
-    public static function restablecer() {
-        echo "Desde Login";
+    public static function restablecer(Router $router) {
 
         if($_SERVER['REQUEST_METHOS'] === 'POST') {
             
         }
+        $router->render('auth/restablecer', [
+            'titulo' => 'Restablecer'
+        ]);
+
     }
 
     public static function mensaje() {
