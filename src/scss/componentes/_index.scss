@@ -1,0 +1,11 @@
+@forward 'formulario';
+@forward 'acciones';
+
+.acciones {
+    margin-top: 5rem;
+
+    a {
+        display: block;
+        text-align: center;
+    }
+}
