@@ -7,6 +7,7 @@ class ActiveRecord {
     public static $nombre;
     public static $email;
     public static $password;
+    public static $password2;
     public static $token;
     public static $confirmado;
 

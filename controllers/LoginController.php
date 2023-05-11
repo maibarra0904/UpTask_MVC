@@ -2,6 +2,8 @@
 
 namespace Controllers;
 
+use Classes\Email;
+use Model\Usuario;
 use MVC\Router;
 
 class LoginController {
@@ -28,13 +30,46 @@ class LoginController {
     }
 
     public static function crear(Router $router) {
+        $alertas = [];
+        $usuario = new Usuario;
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+            $usuario->sincronizar($_POST);
+
+            $alertas = $usuario->validarNuevaCuenta();
+
+            $existeUsuario = Usuario::where('email', $usuario->email);
+
+            if($existeUsuario) {
+                Usuario::setAlerta('error', 'El Usuario ya está registrado');
+                $alertas = Usuario::getAlertas();
+            } else {
+                //Hashear el password
+                $usuario->hashPassword();
+
+                //Eliminar el password2 de comprobacion
+                unset($usuario->password2);
+
+                //Crear el token
+                $usuario->crearToken();
+
+                //Crear el nuevo usuario
+                $resultado = $usuario->guardar();
+
+                //Enviar email
+                $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                $email->enviarConfirmacion();
+
+                if($resultado) {
+                    header('Location: /mensaje');
+                }
+            }
         }
 
         $router->render('auth/crear', [
-            'titulo' => 'Crear'
+            'titulo' => 'Crear',
+            'usuario' => $usuario,
+            'alertas' => $alertas
         ]);
     }
 
@@ -72,11 +107,33 @@ class LoginController {
     }
 
     public static function confirmar(Router $router) {
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
+
+        $token = s($_GET['token']);
+        if(!$token) {
+            header('Location: /');
         }
+
+        //Encontrar al usuario con este token
+        $usuario = Usuario::where('token', $token);
+
+        if(empty($usuario)) {
+            Usuario::setAlerta('error', 'Token No Válido');
+        } else {
+            //Confirmar la cuenta
+            $usuario->confirmado = 1;
+            $usuario->token = null;
+            unset($usuario->password2);
+            $usuario->guardar();
+            Usuario::setAlerta('exito', 'Cuenta comprobada correctamente');
+        }
+
+
+        $alertas = Usuario::getAlertas();
+
+
         $router->render('auth/confirmar', [
-            'titulo' => 'confirmar'
+            'titulo' => 'confirmar',
+            'alertas' => $alertas
         ]);
     }
 }
