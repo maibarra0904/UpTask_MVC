@@ -9,7 +9,7 @@ class LoginController {
     public static function login(Router $router) {
         //echo "Desde Login";
 
-        if($_SERVER['REQUEST_METHOS'] === 'POST') {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         }
 
@@ -22,14 +22,14 @@ class LoginController {
     public static function logout() {
         echo "Desde Login";
 
-        if($_SERVER['REQUEST_METHOS'] === 'POST') {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         }
     }
 
     public static function crear(Router $router) {
 
-        if($_SERVER['REQUEST_METHOS'] === 'POST') {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         }
 
@@ -40,7 +40,7 @@ class LoginController {
 
     public static function olvide(Router $router) {
 
-        if($_SERVER['REQUEST_METHOS'] === 'POST') {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         }
 
@@ -51,7 +51,7 @@ class LoginController {
 
     public static function restablecer(Router $router) {
 
-        if($_SERVER['REQUEST_METHOS'] === 'POST') {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         }
         $router->render('auth/restablecer', [
@@ -60,19 +60,23 @@ class LoginController {
 
     }
 
-    public static function mensaje() {
-        echo "Desde Login";
+    public static function mensaje(Router $router) {
 
-        if($_SERVER['REQUEST_METHOS'] === 'POST') {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         }
+
+        $router->render('auth/mensaje', [
+            'titulo' => 'mensaje'
+        ]);
     }
 
-    public static function confirmar() {
-        echo "Desde Login";
-
-        if($_SERVER['REQUEST_METHOS'] === 'POST') {
+    public static function confirmar(Router $router) {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         }
+        $router->render('auth/confirmar', [
+            'titulo' => 'confirmar'
+        ]);
     }
 }
