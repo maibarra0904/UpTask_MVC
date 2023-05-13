@@ -10,23 +10,54 @@ class LoginController {
 
     public static function login(Router $router) {
         //echo "Desde Login";
+        $alertas = [];
 
         if($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $usuario = new Usuario($_POST);
 
+            $alertas = $usuario->validarLogin();
+
+            if(empty($alertas)) {
+                //Verificar que el usuario exista
+                $usuario = Usuario::where('email', $usuario->email);
+
+                if(!$usuario || !$usuario->confirmado) {
+                    Usuario::setAlerta('error', 'El Usuario no existe o no está confirmado');
+                } else {
+                    //El Usuario existe
+                    if( password_verify($_POST['password'], $usuario->password)) {
+                        //Iniciar sesion
+                        session_start();
+                        $_SESSION['id'] = $usuario->id;
+                        $_SESSION['nombre'] = $usuario->nombre;
+                        $_SESSION['email'] = $usuario->email;
+                        $_SESSION['login'] = true;
+
+                        //Redireccionar
+                        header('Location: /dashboard');
+
+                    } else {
+                        Usuario::setAlerta('error', 'Password Incorrecto');
+                    }
+                }
+
+            }
         }
 
+        $alertas = Usuario::getAlertas();
         //Render a la vista
         $router->render('auth/login', [
-            'titulo' => 'Iniciar Sesión'
+            'titulo' => 'Iniciar Sesión',
+            'alertas' => $alertas,
+            'email' => $usuario->email,
+            'usuario' => $usuario??true
         ]);
     }
 
     public static function logout() {
-        echo "Desde Login";
-
-        if($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
-        }
+        session_start();
+        $_SESSION = [];
+        header('Location: /');
     }
 
     public static function crear(Router $router) {

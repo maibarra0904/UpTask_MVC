@@ -18,6 +18,21 @@ class Usuario extends ActiveRecord {
             $this->confirmado = $args['confirmado'] ?? 0;
     }
 
+    //Validar Login
+    public function validarLogin() {
+        if(!$this->email) {
+            self::$alertas['error'][] = 'El Email del Usuario es Obligatorio';
+        } elseif(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$alertas['error'][] = 'Email no válido';
+        }
+
+        if(!$this->password) {
+            self::$alertas['error'][] = 'El Password no puede estar vacío';
+        }
+
+        return self::$alertas;
+    }
+
     public function validarNuevaCuenta() {
         if(!$this->nombre) {
             self::$alertas['error'][] = 'El Nombre del Usuario es Obligatorio';
