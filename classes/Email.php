@@ -45,4 +45,35 @@ class Email {
         //Enviar Email
         $mail->send();
     }
+
+    public function enviarInstrucciones() {
+        //Crear el objeto de email
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Port = 2525;
+        $mail->Username = 'd5f8c9cb561b01';
+        $mail->Password = 'afd0e4571e71bd';
+
+        $mail->setFrom('admin@miempresa.com');
+        $mail->addAddress('mario.ibarra.86@gmail.com', 'MarioIbarra.com');
+        $mail->Subject = 'Reestablece tu password';
+
+        //Set HTML
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+
+        $contenido = "<html>";
+        $contenido .= "<p>Hola <strong> " . $this->nombre . "</strong>. Al parecer olvidaste tu password.</p>";
+        $contenido .= "<p>Presiona el siguiente <a href='http://localhost:3000/restablecer?token=" . $this->token ."'>
+        enlace</a> para recuperarlo.</p>";
+        $contenido .= "<p>Si tu no solicitaste esta cuenta, ignora éste mensaje.</p>";
+        $contenido .= "</html>";
+
+        $mail->Body = $contenido;
+
+        //Enviar Email
+        $mail->send();
+    }
 }
