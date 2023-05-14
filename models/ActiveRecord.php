@@ -10,6 +10,10 @@ class ActiveRecord {
     public static $password2;
     public static $token;
     public static $confirmado;
+    public static $proyecto;
+    public static $url;
+    public static $propietarioId;
+
 
     protected static $db;
     protected static $tabla = '';
