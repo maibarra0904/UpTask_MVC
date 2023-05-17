@@ -25,6 +25,72 @@
             </form>
         `;
 
-        document.querySelector('body').appendChild(modal);
+        setTimeout(() => {
+            const formulario = document.querySelector('.formulario');
+            formulario.classList.add('animar');
+        }, 10);
+
+        const btnCerrrarModal = document.querySelector('.cerrar-modal');
+
+        modal.addEventListener('click', function(e) {
+            e.preventDefault();
+            if(e.target.classList.contains('cerrar-modal')) {
+                const formulario = document.querySelector('.formulario');
+                formulario.classList.add('cerrar');
+                setTimeout(() => {
+                    modal.remove();
+                }, 500);
+            }
+
+            if(e.target.classList.contains('submit-nueva-tarea')) {
+                submitFormularioNuevaTarea();
+            };
+        });
+
+        document.querySelector('.dashboard').appendChild(modal);
     }
+
+    function submitFormularioNuevaTarea() {
+        const tarea = document.querySelector('#tarea').value.trim();
+        if(tarea === '') {
+            //Mostrar una alerta de error
+            mostrarAlerta('El nombre de la tarea es obligatorio', 'error', document.querySelector('.formulario legend'));
+
+            return; //elreturn
+        }
+
+        agregarTarea(tarea);
+
+    }
+
+    //Consultar el Servidor para añadir una nueva tarea al proyecto actual
+
+    function agregarTarea(tarea) {
+        
+    }
+
+    //Muestra mensaje de alerta en la interfaz
+    function mostrarAlerta(mensaje, tipo, referencia) {
+
+        //Previene la creación de varias alertas
+        const alertaPrevia = document.querySelector('.alerta');
+
+        if(alertaPrevia) alertaPrevia.remove();
+
+        const alerta = document.createElement('DIV');
+        alerta.classList.add('alerta', tipo);
+        alerta.textContent = mensaje;
+
+        //Inserta alerta antes del legend
+        referencia.parentElement.insertBefore(alerta, referencia.nextElementSibling);
+
+        //Eliminar la alerta después de un tiempo
+
+        setTimeout(() => {
+            alerta.remove();
+        }, 3000);
+
+    }
+
+
 })();
