@@ -3,6 +3,7 @@ namespace Model;
 class ActiveRecord {
 
     // Base DE DATOS
+    //Tabla usuarios
     public static $id;
     public static $nombre;
     public static $email;
@@ -10,9 +11,13 @@ class ActiveRecord {
     public static $password2;
     public static $token;
     public static $confirmado;
+    //Tabla proyectos: Como ya existe id no se lo declara
     public static $proyecto;
     public static $url;
     public static $propietarioId;
+    //Tabla tareas: Como ya existen nombre e id no se los declara
+    public static $estado;
+    public static $proyectoId;
 
 
     protected static $db;
