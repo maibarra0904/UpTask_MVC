@@ -11,7 +11,7 @@ class Tarea extends ActiveRecord {
     {
         $this->id = $args['id'] ?? null;
         $this->nombre = $args['nombre'] ?? '';
-        $this->estado = $args['estado'] ?? '';
+        $this->estado = $args['estado'] ?? 0;
         $this->proyectoId = $args['proyectoId'] ?? '';
     }
 }
