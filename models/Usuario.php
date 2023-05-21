@@ -91,4 +91,16 @@ class Usuario extends ActiveRecord {
     public function crearToken() {
         $this->token = uniqid();
     }
+
+
+    public function validar_perfil() {
+        if(!$this->nombre) {
+            self::$alertas['error'][] = 'El nombre es obligatorio';
+        };
+        if(!$this->email) {
+            self::$alertas['error'][] = 'El email es obligatorio';
+        };
+
+        return self::$alertas;
+    }
 }
