@@ -18,6 +18,9 @@ class ActiveRecord {
     //Tabla tareas: Como ya existen nombre e id no se los declara
     public static $estado;
     public static $proyectoId;
+    //Cambio de password
+    public static $password_actual;
+    public static $password_nuevo;
 
 
     protected static $db;
