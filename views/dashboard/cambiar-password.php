@@ -9,12 +9,12 @@
 
         <div class="campo">
             <label for="password_actual">Password Actual</label>
-            <input type="password" name="passwod_actual" placeholder="Tu password actual">
+            <input type="password" name="password_actual" placeholder="Tu password actual">
         </div>
 
         <div class="campo">
             <label for="password_nuevo">Nuevo Password</label>
-            <input type="password" name="passwod_nuevo" placeholder="Tu nuevo password">
+            <input type="password" name="password_nuevo" placeholder="Tu nuevo password">
         </div>
 
         <input type="submit" value="Guardar Cambios">

@@ -1,0 +1,75 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+
+@media (prefers-color-scheme: dark) {
+    $grisOscuro: #2c2c3b;
+
+    body {
+        background-color: $grisOscuro;
+
+    }
+
+    .tagline,
+    .formulario label,
+    .login .acciones a,
+    .crear .acciones a,
+    .olvide .acciones a {
+        color: v.$blanco;
+    }
+
+    .descripcion-pagina,
+    .formulario .campo input,
+    .nombre-pagina,
+    .dashboard .enlace {
+        color: darken($color: v.$grisClaro, $amount: 90%);
+        background-color: lighten($color: $blanco, $amount: 20%);
+    }
+
+
+    .alerta.error {
+        background-color: v.$indigo;
+    }
+
+    .barra-mobile {
+        background-color: darken($color: $grisOscuro, $amount: 7%);
+    }
+
+    .dashboard {
+        background-color: $grisOscuro;
+
+        .enlace {
+            color: v.$grisClaro;
+            &:hover {
+                color: darken($color: v.$grisClaro, $amount: 20%);
+            }
+        }
+    }
+
+    .sidebar {
+        
+            &.activo,
+            &:hover {
+                background-color: v.$naranja;
+            }
+    }
+
+    .proyecto {
+        background-color: lighten($color: $grisOscuro, $amount: 20%);
+    }
+
+    .filtros {
+        background-color: lighten($color: $grisOscuro, $amount: 10%);
+        h2,
+        label {
+            color: v.$blanco;
+        }
+        input[type="radio"] {
+            accent-color: $grisOscuro;
+        }
+    }
+
+    .listado-tareas .tarea {
+        background-color: lighten($color: $grisOscuro, $amount: 10%);
+    }
+}
