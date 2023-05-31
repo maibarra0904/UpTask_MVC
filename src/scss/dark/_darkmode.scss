@@ -23,7 +23,7 @@
     .nombre-pagina,
     .dashboard .enlace {
         color: darken($color: v.$grisClaro, $amount: 90%);
-        background-color: lighten($color: $blanco, $amount: 20%);
+        background-color: lighten($color: v.$blanco, $amount: 20%);
     }
 
 
